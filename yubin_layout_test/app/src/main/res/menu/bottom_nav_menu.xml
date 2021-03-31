@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_videos"
+        android:icon="@drawable/ic_baseline_video_library_24"
+        android:title="@string/title_videos" />
+
+    <item
+        android:id="@+id/navigation_calendar"
+        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:title="@string/title_calendar" />
+
+    <item
+        android:id="@+id/navigation_community"
+        android:icon="@drawable/ic_baseline_group_24"
+        android:title="@string/title_community" />
+
+    <item
+        android:id="@+id/navigation_mypage"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/title_mypage" />
+
+</menu>

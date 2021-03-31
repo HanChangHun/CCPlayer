@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CCPlayer</string>
+
+    <string name="title_videos">영상</string>
+    <string name="title_calendar">캘린더</string>
+    <string name="title_community">커뮤니티</string>
+    <string name="title_mypage">마이페이지</string>
+</resources>
