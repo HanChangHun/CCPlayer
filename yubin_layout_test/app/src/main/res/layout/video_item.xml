@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/video_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/img_thumbnail"
+        android:layout_width="128dp"
+        android:layout_height="64dp"
+        app:cardCornerRadius="5dp"
+        android:layout_margin="10dp">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"
+            android:id="@+id/thumbnail"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/video_duration"
+            android:text="@string/duration_example"
+            android:background="#111"
+            android:textColor="#fff"
+            android:padding="4dp"
+            android:textSize="12sp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="10dp" />
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/video_file_name"
+        android:text="@string/file_name_example"
+        android:layout_toEndOf="@+id/img_thumbnail"
+        android:layout_centerVertical="true"
+        android:textColor="#000"
+        android:layout_marginStart="15dp"/>
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_baseline_more_vert"
+        android:padding="10dp"
+        android:scaleType="centerCrop"
+        android:id="@+id/menu_more"/>
+</RelativeLayout>

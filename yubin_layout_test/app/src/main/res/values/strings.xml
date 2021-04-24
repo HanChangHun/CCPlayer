@@ -5,4 +5,6 @@
     <string name="title_calendar">캘린더</string>
     <string name="title_community">커뮤니티</string>
     <string name="title_mypage">마이페이지</string>
+    <string name="duration_example">4:06</string>
+    <string name="file_name_example">FileName</string>
 </resources>
