@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_videos"
-        android:name="com.example.layout_test.ui.videos.VideoFragment"
+        android:name="com.example.layout_test.ui.videos.VideoFolderFragment"
         android:label="@string/title_videos"
-        tools:layout="@layout/screen_videos" />
+        tools:layout="@layout/screen_video_folder" />
 
     <fragment
         android:id="@+id/navigation_calendar"

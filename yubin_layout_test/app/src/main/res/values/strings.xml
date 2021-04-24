@@ -7,4 +7,9 @@
     <string name="title_mypage">마이페이지</string>
     <string name="duration_example">4:06</string>
     <string name="file_name_example">FileName</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_video_folder_view">폴더 형식 보기</string>
+    <string name="menu_video_file_view">파일 형식 보기</string>
+    <string name="thumbnail_desc">Thumbnail</string>
+    <string name="menu_more_desc">Menu more</string>
 </resources>
