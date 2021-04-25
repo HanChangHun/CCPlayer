@@ -1,5 +1,6 @@
 package com.example.layout_test.ui.videos;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,12 +20,13 @@ import android.view.ViewGroup;
 
 import com.example.layout_test.R;
 
+import static com.example.layout_test.MainActivity.folderList;
 import static com.example.layout_test.MainActivity.videoFiles;
 
 public class VideoFolderFragment extends Fragment {
     RecyclerView recyclerView;
     View view;
-    VideoAdapter videoAdapter;
+    VideoFolderAdapter videoFolderAdapter;
 
     public VideoFolderFragment() {
         // Required empty public constructor
@@ -41,9 +43,9 @@ public class VideoFolderFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.screen_video_folder, container, false);
         recyclerView = view.findViewById(R.id.folderRV);
-        if (videoFiles != null && videoFiles.size() > 0) {
-            videoAdapter = new VideoAdapter(getContext(), videoFiles);
-            recyclerView.setAdapter(videoAdapter);
+        if (folderList != null && folderList.size() > 0 && videoFiles != null) {
+            videoFolderAdapter = new VideoFolderAdapter(getContext(), folderList, videoFiles);
+            recyclerView.setAdapter(videoFolderAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         }
         return view;
@@ -57,6 +59,7 @@ public class VideoFolderFragment extends Fragment {
         item.setTitle(getString(R.string.menu_video_file_view));
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection

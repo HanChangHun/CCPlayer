@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/folderImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/folder_image_desc"
+        android:src="@drawable/ic_baseline_folder_24" />
+
+    <TextView
+        android:id="@+id/countFilesFolder"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@id/folderImage"
+        android:layout_marginStart="-30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@id/folderImage"
+        android:background="@drawable/video_background_drw"
+        android:gravity="center"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/folderName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/folderImage"
+        android:text="@string/sample_folder_name"
+        android:textColor="#000" />
+
+</RelativeLayout>

@@ -18,13 +18,17 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 
-import static com.example.layout_test.ui.videos.VideoAdapter.videoFiles;
+import java.util.ArrayList;
+
+import static com.example.layout_test.ui.videos.VideoFilesAdapter.videoFiles;
+import static com.example.layout_test.ui.videos.VideoFolderAdapter2.folderVideoFiles;
 
 public class VideoPlayer extends AppCompatActivity {
 
     PlayerView playerView;
     SimpleExoPlayer simpleExoPlayer;
     int position = -1;
+    ArrayList<VideoFiles> mFiles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,12 @@ public class VideoPlayer extends AppCompatActivity {
         getSupportActionBar().hide();
         playerView = findViewById(R.id.exoplayer_movie);
         position = getIntent().getIntExtra("position", -1);
-        String path = videoFiles.get(position).getPath();
+
+        String sender = getIntent().getStringExtra("sender");
+        if (sender.equals("FolderIsSending")) mFiles = folderVideoFiles;
+        else mFiles = videoFiles;
+
+        String path = mFiles.get(position).getPath();
         if (path != null) {
             Uri uri = Uri.parse(path);
             simpleExoPlayer = new SimpleExoPlayer.Builder(this).build();

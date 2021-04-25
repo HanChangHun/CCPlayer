@@ -1,5 +1,6 @@
 package com.example.layout_test.ui.videos;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,7 @@ import static com.example.layout_test.MainActivity.videoFiles;
 public class VideoFilesFragment extends Fragment {
     RecyclerView recyclerView;
     View view;
-    VideoAdapter videoAdapter;
+    VideoFilesAdapter videoFilesAdapter;
 
     public VideoFilesFragment() {
         // Required empty public constructor
@@ -42,8 +43,8 @@ public class VideoFilesFragment extends Fragment {
         view = inflater.inflate(R.layout.screen_video_files, container, false);
         recyclerView = view.findViewById(R.id.filesRV);
         if (videoFiles != null && videoFiles.size() > 0) {
-            videoAdapter = new VideoAdapter(getContext(), videoFiles);
-            recyclerView.setAdapter(videoAdapter);
+            videoFilesAdapter = new VideoFilesAdapter(getContext(), videoFiles);
+            recyclerView.setAdapter(videoFilesAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         }
         return view;
@@ -58,6 +59,7 @@ public class VideoFilesFragment extends Fragment {
         item.setTitle(getString(R.string.menu_video_folder_view));
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

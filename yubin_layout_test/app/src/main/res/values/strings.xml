@@ -12,4 +12,6 @@
     <string name="menu_video_file_view">파일 형식 보기</string>
     <string name="thumbnail_desc">Thumbnail</string>
     <string name="menu_more_desc">Menu more</string>
+    <string name="sample_folder_name">Folder Name</string>
+    <string name="folder_image_desc">Folder Image</string>
 </resources>

@@ -8,6 +8,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import static com.example.layout_test.MainActivity.folderList;
+
 public class VideoUtils {
 
     public static ArrayList<VideoFiles> getAllVideos(Context context) {
@@ -36,6 +38,16 @@ public class VideoUtils {
                 VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, size,
                         dateAdded, duration);
                 Log.e("Path", path);  // 파일 존재 확인
+
+                // get file name in folder view
+                int slashFirstIndex = path.lastIndexOf("/");
+                String subString = path.substring(0, slashFirstIndex);
+
+                // add all folder name
+                if (!folderList.contains(subString))
+                    folderList.add(subString);
+
+
                 tempVideoFiles.add(videoFiles);
             }
             cursor.close();

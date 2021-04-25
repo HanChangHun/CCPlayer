@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_PERMISSION = 123;
     public static ArrayList<VideoFiles> videoFiles = new ArrayList<>();
+    public static ArrayList<String> folderList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
