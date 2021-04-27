@@ -13,7 +13,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="그럴싸한 커뮤니티 화면"
+        android:text="@string/community_greet"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,17 +21,57 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.303"
-        tools:text="그럴싸한 커뮤니티 화면" />
+        app:layout_constraintVertical_bias="0.06" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/ic_baseline_group_24"
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="348dp"
+        android:layout_height="72dp"
+        android:text="@string/login"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_community"
-        app:layout_constraintVertical_bias="0.181" />
+        app:layout_constraintVertical_bias="0.133" />
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="348dp"
+        android:layout_height="72dp"
+        android:text="@string/signup"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        app:layout_constraintVertical_bias="0.09" />
+
+    <Button
+        android:id="@+id/btn_newpost"
+        android:layout_width="348dp"
+        android:layout_height="72dp"
+        android:text="@string/new_post"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_signup"
+        app:layout_constraintVertical_bias="0.15" />
+
+    <Button
+        android:id="@+id/btn_viewboards"
+        android:layout_width="348dp"
+        android:layout_height="72dp"
+        android:text="@string/view_boards"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_newpost"
+        app:layout_constraintVertical_bias="0.175" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

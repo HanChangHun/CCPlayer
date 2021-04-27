@@ -5,6 +5,8 @@
     <string name="title_calendar">캘린더</string>
     <string name="title_community">커뮤니티</string>
     <string name="title_mypage">마이페이지</string>
+
+    <!-- 동영상 플레이어 -->
     <string name="duration_example">4:06</string>
     <string name="file_name_example">FileName</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -14,4 +16,24 @@
     <string name="menu_more_desc">Menu more</string>
     <string name="sample_folder_name">Folder Name</string>
     <string name="folder_image_desc">Folder Image</string>
+    <!-- 동영상 플레이어 -->
+
+    <!-- 커뮤니티 -->
+    <string name="signup">회원가입</string>
+    <string name="login">로그인</string>
+    <string name="new_post">새 글 쓰기</string>
+    <string name="view_boards">게시판 보기</string>
+
+    <string name="community_greet">커뮤니티에 어서 오십시오.\n현재로선 다음의 기능들이 제공됩니다:</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">아이디</string>
+    <string name="prompt_password">패스워드</string>
+    <string name="action_sign_in">가입 및 로그인</string>
+    <string name="action_sign_in_short">로그인</string>
+    <string name="welcome">어서오세요! </string>
+    <string name="invalid_username">올바른 아이디를 입력해 주세요</string>
+    <string name="invalid_password">패스워드는 5자리 이상이어야 합니다</string>
+    <string name="login_failed">로그인 실패</string>
+    <!-- 커뮤니티 -->
 </resources>
