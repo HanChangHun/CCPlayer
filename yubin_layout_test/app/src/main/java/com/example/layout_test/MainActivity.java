@@ -8,6 +8,8 @@ import com.example.layout_test.ui.videos.VideoUtils;
 
 import com.example.layout_test.ui.videos.VideoFiles;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSION = 123;
     public static ArrayList<VideoFiles> videoFiles = new ArrayList<>();
     public static ArrayList<String> folderList = new ArrayList<>();
+    public static FirebaseDatabase fireDB = null;
+    public static FirebaseAuth fireAuth = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         permission();  // 외부 파일 권한 요청
 
+        // 파이어베이스 DB 사용하기 앞서 핸들 가져오기
+        fireDB = FirebaseDatabase.getInstance(); // 데이터베이스 접근용
+        fireAuth = FirebaseAuth.getInstance(); // 로그인/회원가입용
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -46,6 +54,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
+
+    // 유빈 추가 시작 (파이어베이스 관련)
+    public static FirebaseDatabase getFireDB () {
+        return fireDB;
+    }
+    public static FirebaseAuth getFireAuth () {
+        return fireAuth;
+    }
+    // 유빈 추가 끝
 
     // 창헌 추가 시작 (외부 파일 권한 관련)
     private void permission() {

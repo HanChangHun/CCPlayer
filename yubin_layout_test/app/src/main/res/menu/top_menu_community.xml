@@ -2,13 +2,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_community1"
-        android:title="여기에" />
-
-    <item
-        android:id="@+id/action_community2"
-        android:title="기능" />
-
-    <item
-        android:id="@+id/action_community3"
-        android:title="넣어요" />
+        android:title="로그아웃" />
 </menu>
