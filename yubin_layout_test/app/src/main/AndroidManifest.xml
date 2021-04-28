@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Layout_test">
-        <activity android:name=".CommunityViewPostActivity"></activity>
+        <activity android:name=".ui.community.CommunityViewPostActivity"></activity>
         <activity android:name=".ui.community.CommunityWritePostActivity" />
         <activity android:name=".ui.community.RegisterActivity" />
         <activity android:name=".ui.community.LoginActivity" />

@@ -1,4 +1,4 @@
-package com.example.layout_test;
+package com.example.layout_test.ui.community;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.layout_test.MainActivity;
+import com.example.layout_test.R;
 import com.example.layout_test.ui.community.PostItem;
 
 public class CommunityViewPostActivity extends AppCompatActivity {
