@@ -1,6 +1,5 @@
 package com.example.layout_test.ui.videos;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,9 +7,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.ui.AppBarConfiguration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +22,8 @@ import android.view.ViewGroup;
 
 import com.example.layout_test.R;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
+import static androidx.navigation.ui.NavigationUI.setupActionBarWithNavController;
 import static com.example.layout_test.MainActivity.folderList;
 import static com.example.layout_test.MainActivity.videoFiles;
 
@@ -28,15 +32,12 @@ public class VideoFolderFragment extends Fragment {
     View view;
     VideoFolderAdapter videoFolderAdapter;
 
-    public VideoFolderFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,24 +60,13 @@ public class VideoFolderFragment extends Fragment {
         item.setTitle(getString(R.string.menu_video_file_view));
     }
 
-    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_video_view_type:
-                setFilesView();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_video_view_type) {
+            VideoFragment.viewType = 0;
+            findNavController(this).navigate(R.id.action_navigation_video_folder_to_navigation_video);
+            return true;
         }
-    }
-
-    public void setFilesView() {
-        FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-
-        fragmentTransaction.replace(R.id.nav_host_fragment, new VideoFilesFragment());
-        fragmentTransaction.commitAllowingStateLoss();
+        return super.onOptionsItemSelected(item);
     }
 }

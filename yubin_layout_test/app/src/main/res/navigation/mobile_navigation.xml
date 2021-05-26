@@ -12,10 +12,39 @@
         tools:layout="@layout/screen_home" />
 
     <fragment
-        android:id="@+id/navigation_videos"
+        android:id="@+id/navigation_video"
+        android:name="com.example.layout_test.ui.videos.VideoFragment"
+        android:label="@string/title_videos"
+        tools:layout="@layout/screen_video" >
+        <action
+            android:id="@+id/action_navigation_video_to_navigation_video_file"
+            app:destination="@id/navigation_video_file"
+            app:launchSingleTop="true"/>
+        <action
+            android:id="@+id/action_navigation_video_to_navigation_video_folder"
+            app:destination="@id/navigation_video_folder"
+            app:launchSingleTop="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_video_folder"
         android:name="com.example.layout_test.ui.videos.VideoFolderFragment"
         android:label="@string/title_videos"
-        tools:layout="@layout/screen_video_folder" />
+        tools:layout="@layout/screen_video_folder" >
+        <action
+            android:id="@+id/action_navigation_video_folder_to_navigation_video"
+            app:destination="@id/navigation_video" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_video_file"
+        android:name="com.example.layout_test.ui.videos.VideoFileFragment"
+        android:label="@string/title_videos"
+        tools:layout="@layout/screen_video_file" >
+        <action
+            android:id="@+id/action_navigation_video_file_to_navigation_video"
+            app:destination="@id/navigation_video" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_calendar"
@@ -34,4 +63,6 @@
         android:name="com.example.layout_test.ui.mypage.MypageFragment"
         android:label="@string/title_mypage"
         tools:layout="@layout/screen_mypage" />
+
+
 </navigation>

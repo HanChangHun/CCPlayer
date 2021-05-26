@@ -19,10 +19,10 @@ import java.util.ArrayList;
 
 public class VideoFolderAdapter2 extends RecyclerView.Adapter<VideoFolderAdapter2.MyViewHolder> {
     private Context mContext;
-    static ArrayList<VideoFiles> folderVideoFiles;
+    static ArrayList<VideoFile> folderVideoFiles;
     View view;
 
-    public VideoFolderAdapter2(Context mContext, ArrayList<VideoFiles> folderVideoFiles) {
+    public VideoFolderAdapter2(Context mContext, ArrayList<VideoFile> folderVideoFiles) {
         this.mContext = mContext;
         VideoFolderAdapter2.folderVideoFiles = folderVideoFiles;
     }

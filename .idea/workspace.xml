@@ -25,9 +25,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="452e55d6-ec57-4fbb-9db1-10a51299eeb5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/yubin_layout_test/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yubin_layout_test/.idea/gradle.xml" afterDir="false" />
-    </list>
+    <list default="true" id="452e55d6-ec57-4fbb-9db1-10a51299eeb5" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,6 +72,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1506" y="535" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1619256168696">
@@ -84,9 +83,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="640" y="255" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040/1920.-372.1920.1040/-1920.360.1920.1040@0.0.1920.1040" timestamp="1619254254750" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1617188501343">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1621989947527">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/-1920.396.1920.1040/1920.-421.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1617188501343" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/-1920.468.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1621989947527" />
   </component>
 </project>

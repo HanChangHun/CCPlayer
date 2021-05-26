@@ -1,6 +1,6 @@
 package com.example.layout_test.ui.videos;
 
-public class VideoFiles {
+public class VideoFile {
     private String id;
     private String path;
     private String title;
@@ -9,9 +9,9 @@ public class VideoFiles {
     private String dateAdded;
     private String duration;
 
-    public VideoFiles(String id, String path, String title,
-                      String fileName, String size,
-                      String dateAdded, String duration) {
+    public VideoFile(String id, String path, String title,
+                     String fileName, String size,
+                     String dateAdded, String duration) {
         this.id = id;
         this.path = path;
         this.title = title;

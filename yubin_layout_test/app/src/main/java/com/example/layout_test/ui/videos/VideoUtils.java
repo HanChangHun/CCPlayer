@@ -12,8 +12,8 @@ import static com.example.layout_test.MainActivity.folderList;
 
 public class VideoUtils {
 
-    public static ArrayList<VideoFiles> getAllVideos(Context context) {
-        ArrayList<VideoFiles> tempVideoFiles = new ArrayList<>();
+    public static ArrayList<VideoFile> getAllVideos(Context context) {
+        ArrayList<VideoFile> tempVideoFiles = new ArrayList<>();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {
                 MediaStore.Video.Media._ID,
@@ -35,9 +35,9 @@ public class VideoUtils {
                 String dateAdded = cursor.getString(4);
                 String duration = cursor.getString(5);
                 String fileName = cursor.getString(6);
-                VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, size,
+                VideoFile videoFile = new VideoFile(id, path, title, fileName, size,
                         dateAdded, duration);
-                Log.e("Path", path);  // 파일 존재 확인
+                Log.e("201521037", path);  // 파일 존재 확인
 
                 // get file name in folder view
                 int slashFirstIndex = path.lastIndexOf("/");
@@ -48,7 +48,7 @@ public class VideoUtils {
                     folderList.add(subString);
 
 
-                tempVideoFiles.add(videoFiles);
+                tempVideoFiles.add(videoFile);
             }
             cursor.close();
         }

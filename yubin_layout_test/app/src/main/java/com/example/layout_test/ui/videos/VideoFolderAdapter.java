@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.MyHolder> {
     private Context mContext;
     private ArrayList<String> folderNames;
-    private ArrayList<VideoFiles> videoFiles;
+    private ArrayList<VideoFile> videoFiles;
 
-    public VideoFolderAdapter(Context mContext, ArrayList<String> folderNames, ArrayList<VideoFiles> videoFiles) {
+    public VideoFolderAdapter(Context mContext, ArrayList<String> folderNames, ArrayList<VideoFile> videoFiles) {
         this.mContext = mContext;
         this.folderNames = folderNames;
         this.videoFiles = videoFiles;
@@ -64,8 +64,8 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
 
     int numberOfFiles(String folderName) {
         int countFiles = 0;
-        for (VideoFiles videoFiles : videoFiles) {
-            if (videoFiles.getPath().substring(0, videoFiles.getPath().lastIndexOf("/"))
+        for (VideoFile videoFile : videoFiles) {
+            if (videoFile.getPath().substring(0, videoFile.getPath().lastIndexOf("/"))
                     .endsWith(folderName)) {
                 countFiles++;
             }

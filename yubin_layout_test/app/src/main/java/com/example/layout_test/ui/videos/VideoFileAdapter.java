@@ -17,14 +17,14 @@ import com.example.layout_test.R;
 import java.io.File;
 import java.util.ArrayList;
 
-public class VideoFilesAdapter extends RecyclerView.Adapter<VideoFilesAdapter.MyViewHolder> {
+public class VideoFileAdapter extends RecyclerView.Adapter<VideoFileAdapter.MyViewHolder> {
     private Context mContext;
-    static ArrayList<VideoFiles> videoFiles;
+    static ArrayList<VideoFile> videoFiles;
     View view;
 
-    public VideoFilesAdapter(Context mContext, ArrayList<VideoFiles> videoFiles) {
+    public VideoFileAdapter(Context mContext, ArrayList<VideoFile> videoFiles) {
         this.mContext = mContext;
-        VideoFilesAdapter.videoFiles = videoFiles;
+        VideoFileAdapter.videoFiles = videoFiles;
     }
 
     @NonNull

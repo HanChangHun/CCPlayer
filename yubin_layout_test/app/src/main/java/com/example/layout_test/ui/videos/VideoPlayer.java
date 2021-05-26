@@ -19,8 +19,9 @@ import com.google.android.exoplayer2.util.Util;
 
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-import static com.example.layout_test.ui.videos.VideoFilesAdapter.videoFiles;
+import static com.example.layout_test.ui.videos.VideoFileAdapter.videoFiles;
 import static com.example.layout_test.ui.videos.VideoFolderAdapter2.folderVideoFiles;
 
 public class VideoPlayer extends AppCompatActivity {
@@ -28,14 +29,14 @@ public class VideoPlayer extends AppCompatActivity {
     PlayerView playerView;
     SimpleExoPlayer simpleExoPlayer;
     int position = -1;
-    ArrayList<VideoFiles> mFiles = new ArrayList<>();
+    ArrayList<VideoFile> mFiles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setFullScreen();
         setContentView(R.layout.screen_video_player);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         playerView = findViewById(R.id.exoplayer_movie);
         position = getIntent().getIntExtra("position", -1);
 

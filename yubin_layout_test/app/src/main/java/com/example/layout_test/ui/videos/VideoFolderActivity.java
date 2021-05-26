@@ -1,6 +1,5 @@
 package com.example.layout_test.ui.videos;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -21,7 +19,7 @@ public class VideoFolderActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     VideoFolderAdapter2 videoFolderAdapter2;
     String mFolderName;
-    ArrayList<VideoFiles> videoFilesArrayList = new ArrayList<>();
+    ArrayList<VideoFile> videoFileArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,17 +27,17 @@ public class VideoFolderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video_folder);
         recyclerView = findViewById(R.id.folderVideoRV);
         mFolderName = getIntent().getStringExtra("folderName");
-        if (mFolderName != null) videoFilesArrayList = getAllVideos(this, mFolderName);
-        if (videoFilesArrayList.size() > 0) {
-            videoFolderAdapter2 = new VideoFolderAdapter2(this, videoFilesArrayList);
+        if (mFolderName != null) videoFileArrayList = getAllVideos(this, mFolderName);
+        if (videoFileArrayList.size() > 0) {
+            videoFolderAdapter2 = new VideoFolderAdapter2(this, videoFileArrayList);
             recyclerView.setAdapter(videoFolderAdapter2);
             recyclerView.setLayoutManager(new LinearLayoutManager(this,
                     RecyclerView.VERTICAL, false));
         }
     }
 
-    public ArrayList<VideoFiles> getAllVideos(Context context, String folderName) {
-        ArrayList<VideoFiles> tempVideoFiles = new ArrayList<>();
+    public ArrayList<VideoFile> getAllVideos(Context context, String folderName) {
+        ArrayList<VideoFile> tempVideoFiles = new ArrayList<>();
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {
                 MediaStore.Video.Media._ID,
@@ -67,13 +65,13 @@ public class VideoFolderActivity extends AppCompatActivity {
                 String duration = cursor.getString(5);
                 String fileName = cursor.getString(6);
                 String bucket_name = cursor.getString(7);
-                VideoFiles videoFiles = new VideoFiles(id, path, title, fileName, size,
+                VideoFile videoFile = new VideoFile(id, path, title, fileName, size,
                         dateAdded, duration);
                 Log.e("Path", path);  // 파일 존재 확인
 
-                if (folderName.endsWith(bucket_name)) tempVideoFiles.add(videoFiles);
+                if (folderName.endsWith(bucket_name)) tempVideoFiles.add(videoFile);
 
-                tempVideoFiles.add(videoFiles);
+                tempVideoFiles.add(videoFile);
             }
             cursor.close();
         }
