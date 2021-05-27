@@ -3,6 +3,8 @@ package com.example.layout_test;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 
 import com.example.layout_test.ui.videos.VideoUtils;
 
@@ -73,12 +75,24 @@ public class MainActivity extends AppCompatActivity {
 
     // 창헌 추가 시작 (외부 파일 권한 관련)
     private void permission() {
+        String TAG = "201521037";
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
         } else {
+            String state = Environment.getExternalStorageState();
+            if (state.equals(Environment.MEDIA_MOUNTED)){
+                Log.e(TAG, "permission: state is MEDIA_MOUNTED");
+            } else if (state.equals(Environment.MEDIA_MOUNTED_READ_ONLY)){
+                Log.e(TAG, "permission: state is MEDIA_MOUNTED_READ_ONLY");
+            } else {
+                Log.e(TAG, "permission: state is MEDIA_UNMOUNTED");
+            }
+            Log.e(TAG, "permission: granted");
+
             videoFiles = VideoUtils.getAllVideos(this);
+            VideoUtils.getAllVideos2(this);
         }
     }
 

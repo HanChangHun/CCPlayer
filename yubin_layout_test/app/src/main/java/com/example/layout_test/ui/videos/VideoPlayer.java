@@ -25,7 +25,6 @@ import static com.example.layout_test.ui.videos.VideoFileAdapter.videoFiles;
 import static com.example.layout_test.ui.videos.VideoFolderAdapter2.folderVideoFiles;
 
 public class VideoPlayer extends AppCompatActivity {
-
     PlayerView playerView;
     SimpleExoPlayer simpleExoPlayer;
     int position = -1;
