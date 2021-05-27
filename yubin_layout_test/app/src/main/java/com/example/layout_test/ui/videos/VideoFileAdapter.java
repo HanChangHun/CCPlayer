@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,10 +15,10 @@ import com.example.layout_test.R;
 import java.io.File;
 import java.util.ArrayList;
 
-public class VideoFileAdapter extends RecyclerView.Adapter<VideoFileAdapter.MyViewHolder> {
-    private Context mContext;
-    static ArrayList<VideoFile> videoFiles;
-    View view;
+public class VideoFileAdapter extends RecyclerView.Adapter<VideoViewHolder> {
+    public static ArrayList<VideoFile> videoFiles;
+    private final Context mContext;
+    public View view;
 
     public VideoFileAdapter(Context mContext, ArrayList<VideoFile> videoFiles) {
         this.mContext = mContext;
@@ -29,13 +27,13 @@ public class VideoFileAdapter extends RecyclerView.Adapter<VideoFileAdapter.MyVi
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(mContext).inflate(R.layout.video_file_item, parent, false);
-        return new MyViewHolder(view);
+        return new VideoViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
         holder.fileName.setText(videoFiles.get(position).getTitle());
         Glide.with(mContext)
                 .load(new File(videoFiles.get(position).getPath()))
@@ -51,18 +49,5 @@ public class VideoFileAdapter extends RecyclerView.Adapter<VideoFileAdapter.MyVi
     @Override
     public int getItemCount() {
         return videoFiles.size();
-    }
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView thumbnail, menuMore;
-        TextView fileName, videoDuration;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            thumbnail = itemView.findViewById(R.id.video_thumbnail);
-            menuMore = itemView.findViewById(R.id.video_menu_more);
-            fileName = itemView.findViewById(R.id.video_file_name);
-            videoDuration = itemView.findViewById(R.id.video_duration);
-        }
     }
 }
