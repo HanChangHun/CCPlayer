@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.layout_test.R;
 
-public class VideoViewHolder extends RecyclerView.ViewHolder {
+public class VideoFileHolder extends RecyclerView.ViewHolder {
     ImageView thumbnail, menuMore;
     TextView fileName, videoDuration;
 
-    public VideoViewHolder(@NonNull View itemView) {
+    public VideoFileHolder(@NonNull View itemView) {
         super(itemView);
         thumbnail = itemView.findViewById(R.id.video_thumbnail);
         menuMore = itemView.findViewById(R.id.video_menu_more);

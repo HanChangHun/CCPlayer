@@ -15,7 +15,7 @@ import com.example.layout_test.R;
 import java.io.File;
 import java.util.ArrayList;
 
-public class VideoFileAdapter extends RecyclerView.Adapter<VideoViewHolder> {
+public class VideoFileAdapter extends RecyclerView.Adapter<VideoFileHolder> {
     public static ArrayList<VideoFile> videoFiles;
     private final Context mContext;
     public View view;
@@ -27,13 +27,13 @@ public class VideoFileAdapter extends RecyclerView.Adapter<VideoViewHolder> {
 
     @NonNull
     @Override
-    public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public VideoFileHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(mContext).inflate(R.layout.video_file_item, parent, false);
-        return new VideoViewHolder(view);
+        return new VideoFileHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull VideoFileHolder holder, int position) {
         holder.fileName.setText(videoFiles.get(position).getTitle());
         Glide.with(mContext)
                 .load(new File(videoFiles.get(position).getPath()))
