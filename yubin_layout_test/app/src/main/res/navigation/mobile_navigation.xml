@@ -54,9 +54,9 @@
 
     <fragment
         android:id="@+id/navigation_community"
-        android:name="com.example.layout_test.ui.community.CommunityFragment"
+        android:name="com.example.layout_test.ui.community.CommunityBoardsFragment"
         android:label="@string/title_community"
-        tools:layout="@layout/screen_community" />
+        tools:layout="@layout/screen_community_boards" />
 
     <fragment
         android:id="@+id/navigation_mypage"

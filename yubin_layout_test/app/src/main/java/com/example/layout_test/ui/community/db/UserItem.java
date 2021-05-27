@@ -1,4 +1,4 @@
-package com.example.layout_test.ui.community;
+package com.example.layout_test.ui.community.db;
 
 import java.util.HashMap;
 import java.util.Map;

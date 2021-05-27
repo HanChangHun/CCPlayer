@@ -1,4 +1,4 @@
-package com.example.layout_test.ui.community;
+package com.example.layout_test.ui.community.db;
 /*
     DB에 담기는 정보들 상위 클래스
     안유빈/202021088

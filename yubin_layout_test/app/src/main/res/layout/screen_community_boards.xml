@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.community.CommunityActivity">
+    tools:context=".ui.community.CommunityBoardsFragment">
 
+    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/textCommunityTitle"
+        android:id="@+id/textCommunityBoardsTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="글 목록"
+        android:text="게시판"
         android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -22,25 +23,13 @@
         app:layout_constraintVertical_bias="0" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/postsRV"
+        android:id="@+id/boardsRV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCommunityTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textCommunityBoardsTitle"
         app:reverseLayout="true" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnNewPost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="40dp"
-        android:clickable="true"
-        android:src="@drawable/ic_baseline_history_edu_24"
-        app:fabSize="auto"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:maxImageSize="30dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

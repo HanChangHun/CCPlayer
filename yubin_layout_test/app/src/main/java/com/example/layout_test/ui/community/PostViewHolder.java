@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.layout_test.MainActivity;
 import com.example.layout_test.R;
+import com.example.layout_test.ui.community.db.PostItem;
 import com.google.firebase.database.DatabaseReference;
 
 import java.text.SimpleDateFormat;

@@ -32,8 +32,22 @@ public class LoginActivity extends AppCompatActivity {
             MainActivity.getFireAuth().signInWithEmailAndPassword(email, pw).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_LONG).show();
-                    // 되돌아가기
-                    finish();
+
+                    // 만약 목적지 Activity가 있으면 그곳으로 이동
+                    String dest = getIntent().getStringExtra("destIntent");
+                    switch (dest) {
+                        case "CommunityActivity":
+                            finish();
+                            Intent intent = new Intent(this, CommunityActivity.class);
+                            intent.putExtra("boardID", getIntent().getStringExtra("boardID")); // 게시판 ID 넘기기
+                            startActivity(intent);
+                            break;
+
+                        default:
+                            // 되돌아가기
+                            finish();
+                            break;
+                    }
                 }
                 else {
                     Toast.makeText(this, "로그인에 실패하였습니다.", Toast.LENGTH_LONG).show();
