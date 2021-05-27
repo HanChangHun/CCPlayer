@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.example.layout_test.MainActivity;
 import com.example.layout_test.R;
-import com.example.layout_test.ui.community.PostItem;
+import com.example.layout_test.ui.community.db.PostItem;
 
 public class CommunityViewPostActivity extends AppCompatActivity {
     TextView mPostTitle, mPostBody;

@@ -1,9 +1,10 @@
-package com.example.layout_test.ui.community;
+package com.example.layout_test.ui.community.db;
 /*
     각 게시글 정보를 담는 모델
     안유빈/202021088
  */
 
+import com.example.layout_test.ui.community.db.DBItem;
 import com.google.firebase.database.ServerValue;
 
 import java.util.HashMap;

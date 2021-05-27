@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.example.layout_test.MainActivity;
 import com.example.layout_test.R;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.layout_test.ui.community.db.PostItem;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -19,6 +19,7 @@ import java.util.Map;
 
 public class CommunityWritePostActivity extends AppCompatActivity {
     private EditText title, body;
+    private String boardID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,8 @@ public class CommunityWritePostActivity extends AppCompatActivity {
         title = findViewById(R.id.edittextPostTitle);
         body = findViewById(R.id.edittextPostBody);
         Button btnPost = findViewById(R.id.btnPost);
+
+        boardID = getIntent().getStringExtra("boardID");
 
         // Set listeners
         btnPost.setOnClickListener(v -> {

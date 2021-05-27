@@ -25,9 +25,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="452e55d6-ec57-4fbb-9db1-10a51299eeb5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/yubin_layout_test/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yubin_layout_test/.idea/gradle.xml" afterDir="false" />
-    </list>
+    <list default="true" id="452e55d6-ec57-4fbb-9db1-10a51299eeb5" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,6 +72,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="-1506" y="535" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1619256168696">
