@@ -15,21 +15,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.layout_test.MainActivity;
 import com.example.layout_test.R;
 
+import java.util.ArrayList;
+
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
-import static com.example.layout_test.MainActivity.videoFiles;
 
 public class VideoFileFragment extends Fragment {
     RecyclerView recyclerView;
     View view;
     VideoFileAdapter videoFileAdapter;
+    public static ArrayList<VideoFile> videoFiles;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        videoFiles = MainActivity.videoFiles;
     }
 
     @Override

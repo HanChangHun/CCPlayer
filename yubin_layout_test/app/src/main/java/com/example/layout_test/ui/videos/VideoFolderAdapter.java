@@ -1,28 +1,32 @@
 package com.example.layout_test.ui.videos;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.layout_test.R;
 
 import java.util.ArrayList;
 
-public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.MyHolder> {
-    private Context mContext;
-    private ArrayList<String> folderNames;
-    private ArrayList<VideoFile> videoFiles;
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
-    public VideoFolderAdapter(Context mContext, ArrayList<String> folderNames, ArrayList<VideoFile> videoFiles) {
+public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.MyHolder> {
+    private final Context mContext;
+    private final ArrayList<String> folderNames;
+    private final ArrayList<VideoFile> videoFiles;
+    private final Fragment fragment;
+
+    public VideoFolderAdapter(Fragment fragment, Context mContext, ArrayList<String> folderNames, ArrayList<VideoFile> videoFiles) {
         this.mContext = mContext;
         this.folderNames = folderNames;
         this.videoFiles = videoFiles;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -41,9 +45,9 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
         holder.folder.setText(folder);
         holder.counterFile.setText(String.valueOf(numberOfFiles(folderNames.get(position))));
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, VideoFolderActivity.class);
-            intent.putExtra("folderName", folderNames.get(position));
-            mContext.startActivity(intent);
+            VideoFileFragment.videoFiles = VideoUtils.getAllVideos(mContext, folderNames.get(position));
+            VideoFragment.viewType = 0;
+            findNavController(fragment).navigate(R.id.action_navigation_video_folder_to_navigation_video);
         });
     }
 

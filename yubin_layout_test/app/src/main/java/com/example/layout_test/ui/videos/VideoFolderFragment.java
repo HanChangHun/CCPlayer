@@ -31,6 +31,7 @@ public class VideoFolderFragment extends Fragment {
     RecyclerView recyclerView;
     View view;
     VideoFolderAdapter videoFolderAdapter;
+    static String mFolderName;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,14 +39,13 @@ public class VideoFolderFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.screen_video_folder, container, false);
         recyclerView = view.findViewById(R.id.folderRV);
         if (folderList != null && folderList.size() > 0 && videoFiles != null) {
-            videoFolderAdapter = new VideoFolderAdapter(getContext(), folderList, videoFiles);
+            videoFolderAdapter = new VideoFolderAdapter(this, getContext(), folderList, videoFiles);
             recyclerView.setAdapter(videoFolderAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         }
@@ -63,10 +63,14 @@ public class VideoFolderFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_video_view_type) {
-            VideoFragment.viewType = 0;
-            findNavController(this).navigate(R.id.action_navigation_video_folder_to_navigation_video);
+            navigateFileFragment();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void navigateFileFragment(){
+        VideoFragment.viewType = 0;
+        findNavController(this).navigate(R.id.action_navigation_video_folder_to_navigation_video);
     }
 }

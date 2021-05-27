@@ -21,7 +21,6 @@
         <activity android:name=".ui.community.CommunityWritePostActivity" />
         <activity android:name=".ui.community.RegisterActivity" />
         <activity android:name=".ui.community.LoginActivity" />
-        <activity android:name=".ui.videos.VideoFolderActivity" />
         <activity android:name=".ui.videos.VideoPlayer" />
         <activity
             android:name=".MainActivity"

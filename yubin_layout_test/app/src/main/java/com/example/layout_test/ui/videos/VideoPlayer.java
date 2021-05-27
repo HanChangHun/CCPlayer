@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static com.example.layout_test.ui.videos.VideoFileAdapter.videoFiles;
-import static com.example.layout_test.ui.videos.VideoFolderAdapter2.folderVideoFiles;
 
 public class VideoPlayer extends AppCompatActivity {
     PlayerView playerView;
@@ -39,10 +38,7 @@ public class VideoPlayer extends AppCompatActivity {
         playerView = findViewById(R.id.exoplayer_movie);
         position = getIntent().getIntExtra("position", -1);
 
-        String sender = getIntent().getStringExtra("sender");
-        if (sender.equals("FolderIsSending")) mFiles = folderVideoFiles;
-        else mFiles = videoFiles;
-
+        mFiles = videoFiles;
         String path = mFiles.get(position).getPath();
         if (path != null) {
             Uri uri = Uri.parse(path);

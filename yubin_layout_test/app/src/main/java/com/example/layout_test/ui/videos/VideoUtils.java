@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import static com.example.layout_test.MainActivity.folderList;
 
 public class VideoUtils {
-    public static ArrayList<VideoFile> getAllVideos(Context context) {
+    public static ArrayList<VideoFile> getAllVideos(Context context, String folderName) {
         ArrayList<VideoFile> tempVideoFiles = new ArrayList<>();
+        Cursor cursor;
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         String[] projection = {
                 MediaStore.Video.Media._ID,
@@ -21,8 +22,15 @@ public class VideoUtils {
                 MediaStore.Video.Media.DURATION,
                 MediaStore.Video.Media.DISPLAY_NAME
         };
-        Cursor cursor = context.getContentResolver().query(uri, projection,
-                null, null, null);
+        if (folderName == null) {
+            cursor = context.getContentResolver().query(uri, projection,
+                    null, null, null);
+        } else {
+            String selection = MediaStore.Video.Media.DATA + " like?";
+            String[] selectionArgs = new String[]{"%" + folderName + "%"};
+            cursor = context.getContentResolver().query(uri, projection,
+                    selection, selectionArgs, null);
+        }
         if (cursor != null) {
             int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID);
             int pathColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
@@ -35,18 +43,21 @@ public class VideoUtils {
                 String title = cursor.getString(titleColumn);
                 int duration = cursor.getInt(durationColumn);
                 String fileName = cursor.getString(nameColumn);
-                VideoFile videoFile = new VideoFile(id, path, title, fileName, duration);
+
                 Log.e("201521037", path);  // 파일 존재 확인
 
-                // get file name in folder view
-                int slashFirstIndex = path.lastIndexOf("/");
-                String subString = path.substring(0, slashFirstIndex);
-
-                // add all folder name
-                if (!folderList.contains(subString))
-                    folderList.add(subString);
-
+                VideoFile videoFile = new VideoFile(id, path, title, fileName, duration);
                 tempVideoFiles.add(videoFile);
+
+                if (folderName == null) {
+                    // get file name in folder view
+                    int slashFirstIndex = path.lastIndexOf("/");
+                    String subString = path.substring(0, slashFirstIndex);
+
+                    // add all folder name
+                    if (!folderList.contains(subString))
+                        folderList.add(subString);
+                }
             }
             cursor.close();
         }
