@@ -1,10 +1,12 @@
 package com.example.layout_test.ui.videos;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+
 
 import java.util.ArrayList;
 
@@ -15,12 +17,12 @@ public class VideoUtils {
         ArrayList<VideoFile> tempVideoFiles = new ArrayList<>();
         Cursor cursor;
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = {
-                MediaStore.Video.Media._ID,
+        @SuppressLint("InlinedApi") String[] projection = {
                 MediaStore.Video.Media.DATA,
-                MediaStore.Video.Media.TITLE,
+                MediaStore.Video.Media.DISPLAY_NAME,
+                MediaStore.Video.Media._ID,
                 MediaStore.Video.Media.DURATION,
-                MediaStore.Video.Media.DISPLAY_NAME
+                MediaStore.Video.Media.TITLE
         };
         if (folderName == null) {
             cursor = context.getContentResolver().query(uri, projection,
@@ -32,11 +34,11 @@ public class VideoUtils {
                     selection, selectionArgs, null);
         }
         if (cursor != null) {
-            int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID);
             int pathColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-            int titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE);
-            int durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION);
             int nameColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME);
+            @SuppressLint("InlinedApi") int durationColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION);
+            int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID);
+            int titleColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE);
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(idColumn);
                 String path = cursor.getString(pathColumn);
@@ -62,22 +64,5 @@ public class VideoUtils {
             cursor.close();
         }
         return tempVideoFiles;
-    }
-
-    public static void getAllVideos2(Context context) {
-        Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = {
-                MediaStore.Video.Media.DATA,
-        };
-        Cursor cursor = context.getContentResolver().query(uri, projection,
-                null, null, null);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                int column_index = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
-                String path = cursor.getString(column_index);
-                Log.e("201521037", path);  // 파일 존재 확인
-            }
-            cursor.close();
-        }
     }
 }

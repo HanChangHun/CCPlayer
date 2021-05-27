@@ -1,12 +1,13 @@
 package com.example.layout_test.ui.videos;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,11 +17,11 @@ import java.util.ArrayList;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
-public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.MyHolder> {
+public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderHolder> {
+    private final Fragment fragment;
     private final Context mContext;
     private final ArrayList<String> folderNames;
     private final ArrayList<VideoFile> videoFiles;
-    private final Fragment fragment;
 
     public VideoFolderAdapter(Fragment fragment, Context mContext, ArrayList<String> folderNames, ArrayList<VideoFile> videoFiles) {
         this.mContext = mContext;
@@ -31,15 +32,15 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
 
     @NonNull
     @Override
-    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public VideoFolderHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.video_folder_item, parent,
                 false);
 
-        return new MyHolder(view);
+        return new VideoFolderHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull VideoFolderHolder holder, int position) {
         int index = folderNames.get(position).lastIndexOf("/");
         String folder = folderNames.get(position).substring(index + 1);
         holder.folder.setText(folder);
@@ -56,15 +57,6 @@ public class VideoFolderAdapter extends RecyclerView.Adapter<VideoFolderAdapter.
         return folderNames.size();
     }
 
-    static class MyHolder extends RecyclerView.ViewHolder {
-        TextView folder, counterFile;
-
-        public MyHolder(@NonNull View itemView) {
-            super(itemView);
-            folder = itemView.findViewById(R.id.folderName);
-            counterFile = itemView.findViewById(R.id.countFilesFolder);
-        }
-    }
 
     int numberOfFiles(String folderName) {
         int countFiles = 0;

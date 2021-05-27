@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "permission: granted");
 
             videoFiles = VideoUtils.getAllVideos(this, null);
-            VideoUtils.getAllVideos2(this);
         }
     }
 
