@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,8 +22,15 @@ import androidx.fragment.app.Fragment;
 import com.example.layout_test.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 
 public class CalendarFragment extends Fragment {
+    private int selectedYear = 0;
+    private int selectedMon = 0;
+    private int selectedDay = 0;
+    private String keyOfData = "";
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +44,26 @@ public class CalendarFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.screen_calendar, container, false);
         ListView listview = root.findViewById(R.id.todoList);
+        CalendarView cal = root.findViewById(R.id.calendarView);
+
+        //Initial Key is current date
+        Calendar c = Calendar.getInstance();
+        keyOfData = Integer.toString(c.get(Calendar.YEAR)) + Integer.toString(c.get(Calendar.MONTH) + 1)
+                + Integer.toString(c.get(Calendar.DATE));
+        Log.i("Initial key", keyOfData);
+        //If users click the calendar, key data change.
+        cal.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                selectedYear = year;
+                selectedMon = month + 1;
+                selectedDay = dayOfMonth;
+                keyOfData = Integer.toString(selectedYear) + Integer.toString(selectedMon)
+                        + Integer.toString(selectedDay);
+                String result = keyOfData.substring(keyOfData.length()-1, keyOfData.length());
+                Log.i("After key", result);
+            }
+        });
         final ArrayList<String> todo = new ArrayList<String>() ;
         final ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_multiple_choice,
                 todo);
@@ -63,29 +91,6 @@ public class CalendarFragment extends Fragment {
 
             }
         });
-        /*
-        Button modifyButton = (Button)root.findViewById(R.id.modify) ;
-        modifyButton.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                int count, checked ;
-                count = adapter.getCount() ;
-
-                if (count > 0) {
-                    // 현재 선택된 아이템의 position 획득.
-                    checked = listview.getCheckedItemPositions();
-                    Log.i("log", "checked : " + checked);
-                    Log.i("log2", "checked : " + count);
-                    if (checked > -1 && checked < count) {
-                        // 아이템 수정
-                        todo.set(checked - 1, Integer.toString(checked+1) + "번 아이템 수정") ;
-
-                        // listview 갱신
-                        adapter.notifyDataSetChanged();
-                    }
-                }
-            }
-        }) ;
-        */
         return root;
     }
     //menu - top_menu_calendar 레이아웃 개체화
