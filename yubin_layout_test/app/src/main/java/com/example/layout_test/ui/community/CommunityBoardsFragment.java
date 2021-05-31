@@ -1,11 +1,9 @@
 package com.example.layout_test.ui.community;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,19 +14,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.layout_test.MainActivity;
 import com.example.layout_test.R;
 import com.example.layout_test.ui.community.db.BoardItem;
-import com.example.layout_test.ui.community.db.PostItem;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 
@@ -85,25 +78,25 @@ public class CommunityBoardsFragment extends Fragment {
         dbref = MainActivity.getFireDB().getReference();
         Query query = dbref.child("boards");
         FirebaseRecyclerOptions<BoardItem> options = new FirebaseRecyclerOptions.Builder<BoardItem>()
-                .setQuery(query, BoardItem.class).build();
-        adapter = new FirebaseRecyclerAdapter<BoardItem, BoardViewHolder>(options) {
+                                                            .setQuery(query, BoardItem.class).build();
+        adapter = new FirebaseRecyclerAdapter<BoardItem, BoardItem.BoardViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull BoardViewHolder holder, int position, @NonNull BoardItem model) {
+            protected void onBindViewHolder(@NonNull BoardItem.BoardViewHolder holder, int position, @NonNull BoardItem model) {
                 holder.bindPlz(model);
             }
 
             @NonNull
             @Override
-            public BoardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public BoardItem.BoardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.community_board_item, parent, false);
-                return new BoardViewHolder(view);
+                return new BoardItem.BoardViewHolder(view);
             }
         };
 
         // (이걸 안하면 글이 작성일자 순서로 정렬되긴 하는데 거꾸로 나와요)
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
+        //layoutManager.setReverseLayout(true);
+        //layoutManager.setStackFromEnd(true);
         rvBoards.setLayoutManager(layoutManager);
 
         // 어댑터 꽂아두기

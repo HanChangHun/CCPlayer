@@ -25,6 +25,9 @@
     <string name="view_boards">게시판 보기</string>
 
     <string name="community_greet">커뮤니티에 어서 오십시오.\n현재로선 다음의 기능들이 제공됩니다:</string>
+    <string name="community_comments">댓글</string>
+    <string name="community_write_comment">댓글 작성...</string>
+    <string name="community_write_submit">전송</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">아이디</string>
