@@ -59,8 +59,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         // 창헌 추가 (이걸 해야 불필요한 뒤로가기 버튼이 없어진다.)
-//        setupActionBarWithNavController(this, navController,
-//                new AppBarConfiguration.Builder(R.id.navigation_video_folder, R.id.navigation_video_file, R.id.navigation_video).build());
+        setupActionBarWithNavController(this, navController,
+                new AppBarConfiguration.Builder(R.id.navigation_video_folder, R.id.navigation_video_file,
+                        R.id.navigation_video, R.id.navigation_home, R.id.navigation_community,
+                        R.id.navigation_calendar, R.id.navigation_mypage).build());
     }
 
     // 유빈 추가 시작 (파이어베이스 관련)
