@@ -120,7 +120,15 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void showSubtitle(boolean show) {
+        if (player == null || playerView.getSubtitleView() == null)
+            return;
 
+        if (!show) {
+            playerView.getSubtitleView().setVisibility(View.GONE);
+            return;
+        }
+
+        playerView.getSubtitleView().setVisibility(View.VISIBLE);
     }
 
     @Override
