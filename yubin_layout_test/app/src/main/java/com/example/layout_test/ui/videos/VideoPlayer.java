@@ -2,11 +2,16 @@ package com.example.layout_test.ui.videos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -45,6 +50,7 @@ public class VideoPlayer {
     private PlayerView playerView;
     private SimpleExoPlayer exoPlayer;
     private MediaSource mediaSource;
+    private int widthOfScreen;
     private ComponentListener componentListener;
     private CacheDataSourceFactory cacheDataSourceFactory;
     private String path;
@@ -83,7 +89,7 @@ public class VideoPlayer {
         }
     }
 
-    private MediaSource buildMediaSource(Uri uri , CacheDataSourceFactory cacheDataSourceFactory) {
+    private MediaSource buildMediaSource(Uri uri, CacheDataSourceFactory cacheDataSourceFactory) {
         @C.ContentType int type = Util.inferContentType(uri);
         switch (type) {
             case C.TYPE_SS:
@@ -123,6 +129,36 @@ public class VideoPlayer {
         return exoPlayer;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    public void seekToOnDoubleTap() {
+        getWidthOfScreen();
+        final GestureDetector gestureDetector = new GestureDetector(context,
+                new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public boolean onDoubleTap(MotionEvent e) {
+                        float positionOfDoubleTapX = e.getX();
+
+                        if (positionOfDoubleTapX < (int) (widthOfScreen / 2))
+                            exoPlayer.seekTo(exoPlayer.getCurrentPosition() - 5000);
+                        else
+                            exoPlayer.seekTo(exoPlayer.getCurrentPosition() + 5000);
+
+                        Log.d(TAG, "onDoubleTap(): widthOfScreen >> " + widthOfScreen +
+                                " positionOfDoubleTapX >>" + positionOfDoubleTapX);
+                        return true;
+                    }
+                });
+
+        playerView.setOnTouchListener((v, event) -> gestureDetector.onTouchEvent(event));
+    }
+
+    private void getWidthOfScreen() {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        widthOfScreen = metrics.widthPixels;
+    }
 
     public void setSelectedSubtitle(String path) {
         Format subtitleFormat = Format.createTextSampleFormat(

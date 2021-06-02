@@ -30,9 +30,10 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
     private ImageButton subtitle, retry, back;
     private ProgressBar progressBar;
     private AudioManager mAudioManager;
-    private boolean disableBackPress = false;
     private int position = -1;
     ArrayList<VideoFile> mFiles = new ArrayList<>();
+    private boolean disableBackPress = false;
+    private boolean toggleSubtitle = true;
 
     private final AudioManager.OnAudioFocusChangeListener mOnAudioFocusChangeListener =
             new AudioManager.OnAudioFocusChangeListener() {
@@ -70,6 +71,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
         getDataFromIntent();
         setupLayout();
         initSource();
+        showSubtitle(true);
     }
 
 
@@ -105,7 +107,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
         mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 
         playerView.getSubtitleView().setVisibility(View.GONE);
-
+        player.seekToOnDoubleTap();
     }
 
     @Override
@@ -120,14 +122,14 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void showSubtitle(boolean show) {
-        if (player == null || playerView.getSubtitleView() == null)
-            return;
-
-        if (!show) {
+        toggleSubtitle = !toggleSubtitle;
+        if (player == null || playerView.getSubtitleView() == null || !toggleSubtitle || !show) {
+            subtitle.setImageResource(R.drawable.exo_no_subtitle_btn);
             playerView.getSubtitleView().setVisibility(View.GONE);
             return;
         }
 
+        subtitle.setImageResource(R.drawable.exo_subtitle_btn);
         playerView.getSubtitleView().setVisibility(View.VISIBLE);
     }
 
@@ -209,14 +211,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
             case R.id.btn_back:
                 onBackPressed();
                 break;
-//            case R.id.btn_next:
-//                player.seekToNext();
-//                checkIfVideoHasSubtitle();
-//                break;
-//            case R.id.btn_prev:
-//                player.seekToPrevious();
-//                checkIfVideoHasSubtitle();
-//                break;
+
             default:
                 break;
         }
@@ -224,8 +219,10 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     private void prepareSubtitles() {
         String subtitleUrl = mFiles.get(position).getSubtitlePath();
-        if (player == null || playerView.getSubtitleView() == null || subtitleUrl == null)
+        if (player == null || playerView.getSubtitleView() == null || subtitleUrl == null) {
+            subtitle.setImageResource(R.drawable.exo_no_subtitle_btn);
             return;
+        }
 
         player.pausePlayer();
         player.setSelectedSubtitle(subtitleUrl);
