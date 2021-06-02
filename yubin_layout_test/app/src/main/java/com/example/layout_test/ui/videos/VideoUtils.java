@@ -14,6 +14,7 @@ import static com.example.layout_test.MainActivity.folderList;
 
 public class VideoUtils {
     public static ArrayList<VideoFile> getAllVideos(Context context, String folderName) {
+        String TAG = "201521037";
         ArrayList<VideoFile> tempVideoFiles = new ArrayList<>();
         Cursor cursor;
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
@@ -46,7 +47,7 @@ public class VideoUtils {
                 int duration = cursor.getInt(durationColumn);
                 String fileName = cursor.getString(nameColumn);
 
-                Log.e("201521037", path);  // 파일 존재 확인
+                Log.d(TAG, "getAllVideos: path: " + path);  // 파일 존재 확인
 
                 VideoFile videoFile = new VideoFile(id, path, title, fileName, duration);
                 tempVideoFiles.add(videoFile);
@@ -64,5 +65,20 @@ public class VideoUtils {
             cursor.close();
         }
         return tempVideoFiles;
+    }
+
+    public static String timeFormat(int time) {
+        time /= 1000;
+        int minutes = time / 60;
+        int seconds = time % 60;
+
+        String strTemp;
+        if (minutes < 10) strTemp = "0" + minutes + ":";
+        else strTemp = minutes + ":";
+
+        if (seconds < 10) strTemp += "0" + seconds;
+        else strTemp += seconds;
+
+        return strTemp;
     }
 }

@@ -2,6 +2,7 @@ package com.example.layout_test.ui.videos;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,10 @@ import com.example.layout_test.R;
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.example.layout_test.ui.videos.VideoUtils.timeFormat;
+
 public class VideoFileAdapter extends RecyclerView.Adapter<VideoFileHolder> {
+    private String TAG = "201521037";
     public static ArrayList<VideoFile> videoFiles;
     private final Context mContext;
     public View view;
@@ -35,6 +39,7 @@ public class VideoFileAdapter extends RecyclerView.Adapter<VideoFileHolder> {
     @Override
     public void onBindViewHolder(@NonNull VideoFileHolder holder, int position) {
         holder.fileName.setText(videoFiles.get(position).getTitle());
+        holder.videoDuration.setText(timeFormat(videoFiles.get(position).getDuration()));
         Glide.with(mContext)
                 .load(new File(videoFiles.get(position).getPath()))
                 .into(holder.thumbnail);

@@ -82,14 +82,14 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_PERMISSION);
         } else {
             String state = Environment.getExternalStorageState();
-            if (state.equals(Environment.MEDIA_MOUNTED)){
-                Log.e(TAG, "permission: state is MEDIA_MOUNTED");
-            } else if (state.equals(Environment.MEDIA_MOUNTED_READ_ONLY)){
-                Log.e(TAG, "permission: state is MEDIA_MOUNTED_READ_ONLY");
-            } else {
-                Log.e(TAG, "permission: state is MEDIA_UNMOUNTED");
-            }
-            Log.e(TAG, "permission: granted");
+//            if (state.equals(Environment.MEDIA_MOUNTED)){
+//                Log.e(TAG, "permission: state is MEDIA_MOUNTED");
+//            } else if (state.equals(Environment.MEDIA_MOUNTED_READ_ONLY)){
+//                Log.e(TAG, "permission: state is MEDIA_MOUNTED_READ_ONLY");
+//            } else {
+//                Log.e(TAG, "permission: state is MEDIA_UNMOUNTED");
+//            }
+//            Log.e(TAG, "permission: granted");
 
             videoFiles = VideoUtils.getAllVideos(this, null);
         }
