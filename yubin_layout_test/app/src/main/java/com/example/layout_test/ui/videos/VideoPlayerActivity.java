@@ -178,7 +178,6 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onBackPressed() {
-        Log.d(TAG, "onBackPressed: !!");
         if (disableBackPress)
             return;
 

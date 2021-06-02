@@ -87,21 +87,13 @@ public class VideoPlayer {
         @C.ContentType int type = Util.inferContentType(uri);
         switch (type) {
             case C.TYPE_SS:
-                Log.d(TAG, "buildMediaSource() C.TYPE_SS = [" + C.TYPE_SS + "]");
                 return new SsMediaSource.Factory(cacheDataSourceFactory).createMediaSource(uri);
-
             case C.TYPE_DASH:
-                Log.d(TAG, "buildMediaSource() C.TYPE_DASH = [" + C.TYPE_DASH + "]");
                 return new DashMediaSource.Factory(cacheDataSourceFactory).createMediaSource(uri);
-
             case C.TYPE_HLS:
-                Log.d(TAG, "buildMediaSource() C.TYPE_HLS = [" + C.TYPE_HLS + "]");
                 return new HlsMediaSource.Factory(cacheDataSourceFactory).createMediaSource(uri);
-
             case C.TYPE_OTHER:
-                Log.d(TAG, "buildMediaSource() C.TYPE_OTHER = [" + C.TYPE_OTHER + "]");
                 return new ProgressiveMediaSource.Factory(cacheDataSourceFactory).createMediaSource(uri);
-
             default: {
                 throw new IllegalStateException("Unsupported type: " + uri);
             }
@@ -152,7 +144,6 @@ public class VideoPlayer {
     private class ComponentListener implements Player.EventListener {
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-            Log.d(TAG, "onPlayerStateChanged: playWhenReady: " + playWhenReady + " playbackState: " + playbackState);
             switch (playbackState) {
                 case Player.STATE_IDLE:
                     playerController.showProgressBar(false);
