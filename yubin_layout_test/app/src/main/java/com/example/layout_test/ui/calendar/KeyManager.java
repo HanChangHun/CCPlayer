@@ -78,7 +78,7 @@ public class KeyManager {
         int cnt = 0;
         if(keyList.contains(findKey)) {
             index = keyList.indexOf(findKey);
-            for (int i = index; i < keyList.size(); i++) {
+            for (int i = index + 1; i < keyList.size(); i++) {
                 if (keyList.get(i).contains("_Time") || i == keyList.size() - 1) {
                     break;
                 }

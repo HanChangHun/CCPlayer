@@ -10,9 +10,9 @@
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:layout_weight="1" />
+        android:layout_height="522dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/newTodo"
-            android:layout_width="265dp"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="      To Do : " />
@@ -52,7 +52,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="233dp"
         android:layout_weight="1"
         android:gravity="center_horizontal|center_vertical"
         android:text="공부 시간 : 0시간 0분" />
