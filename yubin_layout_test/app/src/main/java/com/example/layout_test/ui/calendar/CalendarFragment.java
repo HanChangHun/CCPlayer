@@ -67,7 +67,8 @@ public class CalendarFragment extends Fragment {
         data = rebuild.com.sharedpreferences.SharedPreference.getString(mContext, keyOfData);
         if(data != "")
         {
-            todo.add(data);
+            //todo.add(data);
+            textView.setText(data);
             adapter.notifyDataSetChanged();
         }
         int index = keyManager.endOfDateIndex(Integer.toString(selectedYear), Integer.toString(selectedMon), Integer.toString(selectedDay));
@@ -96,7 +97,7 @@ public class CalendarFragment extends Fragment {
                 rebuild.com.sharedpreferences.SharedPreference.setString(mContext, keyOfData, "0");
                 Log.i("After key", keyOfData);
                 data = rebuild.com.sharedpreferences.SharedPreference.getString(mContext, keyOfData);
-                todo.add(data);
+                textView.setText(data);
                 int index = keyManager.endOfDateIndex(Integer.toString(selectedYear), Integer.toString(selectedMon), Integer.toString(selectedDay));
                 if(index > 0)
                 {
