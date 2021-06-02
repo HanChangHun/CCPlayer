@@ -6,31 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.calendar.CalendarFragment">
 
-    <TextView
-        android:id="@+id/text_calendar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="CCPlayer 레이아웃 테스트\n아래 버튼을 누르시던가 하세요"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        tools:text="CCPlayer 레이아웃 테스트\n아래 버튼을 누르시던가 하세요" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/ic_baseline_arrow_downward_24"
+        android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_calendar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
