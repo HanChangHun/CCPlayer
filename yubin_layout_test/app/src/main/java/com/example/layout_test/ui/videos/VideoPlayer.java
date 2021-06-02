@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.layout_test.R;
+import com.example.layout_test.ui.videos.srt.SRTTools;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.Format;
@@ -47,6 +48,7 @@ public class VideoPlayer {
     private Context context;
     private PlayerController playerController;
 
+    SRTTools srtTools;
     private PlayerView playerView;
     private SimpleExoPlayer exoPlayer;
     private MediaSource mediaSource;
@@ -67,10 +69,10 @@ public class VideoPlayer {
     }
 
     protected void initializePlayer() {
+        srtTools = new SRTTools();
+        srtTools.parseSRT(path.replace(".mp4", ".srt"));
         playerView.requestFocus();
-
         componentListener = new ComponentListener();
-
         cacheDataSourceFactory = new CacheDataSourceFactory(
                 context,
                 100 * 1024 * 1024,
@@ -137,11 +139,16 @@ public class VideoPlayer {
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
                         float positionOfDoubleTapX = e.getX();
-
-                        if (positionOfDoubleTapX < (int) (widthOfScreen / 2))
-                            exoPlayer.seekTo(exoPlayer.getCurrentPosition() - 5000);
-                        else
-                            exoPlayer.seekTo(exoPlayer.getCurrentPosition() + 5000);
+                        Log.d(TAG, "onDoubleTap: size of srts: " + srtTools.getSrts().size());
+                        long current = exoPlayer.getCurrentPosition();
+                        if (positionOfDoubleTapX < (int) (widthOfScreen / 2)) {
+                            Log.d(TAG, "onDoubleTap: getPrev: (current:" + current + "), position: " + srtTools.getPrev(current));
+                            exoPlayer.seekTo(srtTools.getPrev(exoPlayer.getCurrentPosition()));
+                        }
+                        else {
+                            Log.d(TAG, "onDoubleTap: getNext: " + srtTools.getNext(current));
+                            exoPlayer.seekTo(srtTools.getNext(exoPlayer.getCurrentPosition()));
+                        }
 
                         Log.d(TAG, "onDoubleTap(): widthOfScreen >> " + widthOfScreen +
                                 " positionOfDoubleTapX >>" + positionOfDoubleTapX);
