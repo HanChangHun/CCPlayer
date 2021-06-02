@@ -30,7 +30,7 @@ public class CalendarFragment extends Fragment {
     private int selectedMon = 0;
     private int selectedDay = 0;
     private String keyOfData = "";
-
+    KeyManager keyManager = new KeyManager();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,9 +47,7 @@ public class CalendarFragment extends Fragment {
         CalendarView cal = root.findViewById(R.id.calendarView);
 
         //Initial Key is current date
-        Calendar c = Calendar.getInstance();
-        keyOfData = Integer.toString(c.get(Calendar.YEAR)) + Integer.toString(c.get(Calendar.MONTH) + 1)
-                + Integer.toString(c.get(Calendar.DATE));
+        keyOfData = keyManager.initialKey();
         Log.i("Initial key", keyOfData);
         //If users click the calendar, key data change.
         cal.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -58,12 +56,12 @@ public class CalendarFragment extends Fragment {
                 selectedYear = year;
                 selectedMon = month + 1;
                 selectedDay = dayOfMonth;
-                keyOfData = Integer.toString(selectedYear) + Integer.toString(selectedMon)
-                        + Integer.toString(selectedDay);
-                String result = keyOfData.substring(keyOfData.length()-1, keyOfData.length());
-                Log.i("After key", result);
+                //선택된 날짜의 key로 현재 key를 갱신
+                keyOfData = keyManager.newKey(Integer.toString(selectedYear), Integer.toString(selectedMon), Integer.toString(selectedDay));
+                Log.i("After key", keyOfData);
             }
         });
+
         final ArrayList<String> todo = new ArrayList<String>() ;
         final ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_multiple_choice,
                 todo);
@@ -74,19 +72,16 @@ public class CalendarFragment extends Fragment {
         Button addButton = (Button)root.findViewById(R.id.add) ;
         addButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                /*
-                int count, checked;
-                count = adapter.getCount();
-                todo.add("일정을 추가하세요");
-                adapter.notifyDataSetChanged();
-                 */
                 //edittext에서 값 받아오기
                 EditText ed = (EditText)root.findViewById(R.id.newitem);
                 String text = ed.getText().toString();
                 if (!text.isEmpty()) {
                     todo.add(text);
+                    //새로운 key 생성
+                    keyOfData = keyManager.addKey(Integer.toString(selectedYear), Integer.toString(selectedMon), Integer.toString(selectedDay));
                     ed.setText("");
                     adapter.notifyDataSetChanged();
+                    Log.i("add", keyOfData);
                 }
 
             }
