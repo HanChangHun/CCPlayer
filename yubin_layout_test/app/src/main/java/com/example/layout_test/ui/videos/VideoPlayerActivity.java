@@ -1,6 +1,7 @@
 package com.example.layout_test.ui.videos;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +27,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     private PlayerView playerView;
     private VideoPlayer player;
-    private ImageButton subtitle;
+    private ImageButton subtitle, retry, back;
     private ProgressBar progressBar;
     private AudioManager mAudioManager;
     private boolean disableBackPress = false;
@@ -39,7 +41,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
                     switch (focusChange) {
                         case AudioManager.AUDIOFOCUS_GAIN:
                             if (player != null)
-                                //  player.getPlayer().setPlayWhenReady(true);
+//                                  player.getPlayer().setPlayWhenReady(true);
                                 break;
                         case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
                             // Audio focus was lost, but it's possible to duck (i.e.: play quietly)
@@ -88,13 +90,25 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
         progressBar = findViewById(R.id.progress_bar);
 
         subtitle = findViewById(R.id.btn_subtitle);
+        retry = findViewById(R.id.retry_btn);
+        back = findViewById(R.id.btn_back);
+
+        subtitle.setOnClickListener(this);
+        retry.setOnClickListener(this);
+        back.setOnClickListener(this);
     }
 
     private void initSource() {
         Log.d(TAG, "initSource: ");
         mFiles = videoFiles;
         String path = mFiles.get(position).getPath();
+
         player = new VideoPlayer(playerView, getApplicationContext(), path, this);
+
+        mAudioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+
+        playerView.getSubtitleView().setVisibility(View.GONE);
+
     }
 
     @Override
@@ -104,7 +118,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void showRetryBtn(boolean visible) {
-
+        retry.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -114,7 +128,10 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void audioFocus() {
-
+        mAudioManager.requestAudioFocus(
+                mOnAudioFocusChangeListener,
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN);
     }
 
     @SuppressLint("InlinedApi")
@@ -178,7 +195,35 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
+        int controllerId = v.getId();
 
+        switch (controllerId) {
+            case R.id.btn_subtitle:
+                prepareSubtitles();
+                break;
+            case R.id.btn_back:
+                onBackPressed();
+                break;
+//            case R.id.btn_next:
+//                player.seekToNext();
+//                checkIfVideoHasSubtitle();
+//                break;
+//            case R.id.btn_prev:
+//                player.seekToPrevious();
+//                checkIfVideoHasSubtitle();
+//                break;
+            default:
+                break;
+        }
+    }
+
+    private void prepareSubtitles() {
+        String subtitleUrl = mFiles.get(position).getSubtitlePath();
+        if (player == null || playerView.getSubtitleView() == null || subtitleUrl == null)
+            return;
+
+        player.pausePlayer();
+        player.setSelectedSubtitle(subtitleUrl);
     }
 
 

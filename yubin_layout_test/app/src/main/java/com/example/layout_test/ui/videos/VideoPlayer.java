@@ -5,20 +5,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.layout_test.R;
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.MergingMediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.source.SingleSampleMediaSource;
+import com.google.android.exoplayer2.source.dash.DashMediaSource;
+import com.google.android.exoplayer2.source.hls.HlsMediaSource;
+import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.MimeTypes;
 import com.google.android.exoplayer2.util.Util;
 
 
@@ -34,7 +44,9 @@ public class VideoPlayer {
 
     private PlayerView playerView;
     private SimpleExoPlayer exoPlayer;
+    private MediaSource mediaSource;
     private ComponentListener componentListener;
+    private CacheDataSourceFactory cacheDataSourceFactory;
     private String path;
 
     public VideoPlayer(PlayerView playerView,
@@ -53,22 +65,46 @@ public class VideoPlayer {
 
         componentListener = new ComponentListener();
 
+        cacheDataSourceFactory = new CacheDataSourceFactory(
+                context,
+                100 * 1024 * 1024,
+                5 * 1024 * 1024);
+
         if (path != null) {
-            Uri uri = Uri.parse(path);
             exoPlayer = new SimpleExoPlayer.Builder(context).build();
-            DataSource.Factory factory = new DefaultDataSourceFactory(context,
-                    Util.getUserAgent(context,
-                            "CCPlayer"));
-            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 
             playerView.setPlayer(exoPlayer);
             playerView.setKeepScreenOn(true);
             exoPlayer.setPlayWhenReady(true);
             exoPlayer.addListener(componentListener);
 
-            ProgressiveMediaSource mediaSource = new ProgressiveMediaSource.Factory(factory,
-                    extractorsFactory).createMediaSource(uri);
+            mediaSource = buildMediaSource(Uri.parse(path), cacheDataSourceFactory);
             exoPlayer.prepare(mediaSource);
+        }
+    }
+
+    private MediaSource buildMediaSource(Uri uri , CacheDataSourceFactory cacheDataSourceFactory) {
+        @C.ContentType int type = Util.inferContentType(uri);
+        switch (type) {
+            case C.TYPE_SS:
+                Log.d(TAG, "buildMediaSource() C.TYPE_SS = [" + C.TYPE_SS + "]");
+                return new SsMediaSource.Factory(cacheDataSourceFactory).createMediaSource(uri);
+
+            case C.TYPE_DASH:
+                Log.d(TAG, "buildMediaSource() C.TYPE_DASH = [" + C.TYPE_DASH + "]");
+                return new DashMediaSource.Factory(cacheDataSourceFactory).createMediaSource(uri);
+
+            case C.TYPE_HLS:
+                Log.d(TAG, "buildMediaSource() C.TYPE_HLS = [" + C.TYPE_HLS + "]");
+                return new HlsMediaSource.Factory(cacheDataSourceFactory).createMediaSource(uri);
+
+            case C.TYPE_OTHER:
+                Log.d(TAG, "buildMediaSource() C.TYPE_OTHER = [" + C.TYPE_OTHER + "]");
+                return new ProgressiveMediaSource.Factory(cacheDataSourceFactory).createMediaSource(uri);
+
+            default: {
+                throw new IllegalStateException("Unsupported type: " + uri);
+            }
         }
     }
 
@@ -93,6 +129,23 @@ public class VideoPlayer {
 
     public SimpleExoPlayer getPlayer() {
         return exoPlayer;
+    }
+
+
+    public void setSelectedSubtitle(String path) {
+        Format subtitleFormat = Format.createTextSampleFormat(
+                null,
+                MimeTypes.APPLICATION_SUBRIP,
+                Format.NO_VALUE,
+                null);
+
+        MediaSource subtitleSource = new SingleSampleMediaSource
+                .Factory(cacheDataSourceFactory)
+                .createMediaSource(Uri.parse(path), subtitleFormat, C.TIME_UNSET);
+
+        exoPlayer.prepare(new MergingMediaSource(mediaSource, subtitleSource), false, false);
+        playerController.showSubtitle(true);
+        resumePlayer();
     }
 
 

@@ -57,4 +57,12 @@ public class VideoFile {
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
+    public String getSubtitlePath() {
+        return subtitlePath;
+    }
+
+    public void setSubtitlePath(String subtitlePath) {
+        this.subtitlePath = subtitlePath;
+    }
 }
