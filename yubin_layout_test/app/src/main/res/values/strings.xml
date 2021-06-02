@@ -39,4 +39,12 @@
     <string name="invalid_password">패스워드는 5자리 이상이어야 합니다</string>
     <string name="login_failed">로그인 실패</string>
     <!-- 커뮤니티 -->
+
+
+    <!-- 마이페이지 -->
+    <string name="mypage_login">아직 로그인이 되어있지 않습니다.</string>
+    <string name="mypage_settings">사용자 설정</string>
+    <string name="mypage_info">사용자 정보</string>
+    <string name="mypage_set_pw">비밀번호 재설정</string>
+    <!-- 마이페이지 -->
 </resources>
