@@ -10,7 +10,8 @@
     <CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="645dp"
+        android:layout_height="600dp"
+        android:gravity="center_horizontal|center_vertical"
         android:layout_weight="1" />
 
     <LinearLayout
@@ -20,24 +21,23 @@
 
         <TextView
             android:id="@+id/newTodo"
-            android:layout_width="267dp"
-            android:layout_height="45dp"
+            android:layout_width="265dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="      To Do : " />
 
         <EditText
+            android:id="@+id/newitem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/newitem"
             android:focusable="true"
-            android:focusableInTouchMode="true"
-            />
+            android:focusableInTouchMode="true" />
 
         <Button
             android:id="@+id/add"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:text="add"
             app:layout_constraintBottom_toTopOf="@+id/todoList"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,10 +49,18 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="공부 시간 : 0시간 0분" />
+
     <ListView
         android:id="@+id/todoList"
         android:layout_width="match_parent"
-        android:layout_height="149dp"
+        android:layout_height="195dp"
         android:choiceMode="multipleChoice" />
 
 

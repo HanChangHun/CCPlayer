@@ -33,6 +33,7 @@ public class KeyManager {
     public String addKey(String year, String month, String date)
     {
         findKey = year + month + date;
+        Log.i("findkey", findKey);
         int cnt = 1;
         String newKey = "";
         if(keyList.contains(currentKey))
@@ -53,5 +54,23 @@ public class KeyManager {
             }
         }
         return newKey;
+    }
+
+    public int endOfDateIndex(String year, String month, String date)
+    {
+        findKey = year + month + date + "_Time";
+        String findDate = year + month + date;
+        int index = 0;
+        int cnt = 0;
+        if(keyList.contains(findKey)) {
+            index = keyList.indexOf(findKey);
+            for (int i = index; i < keyList.size(); i++) {
+                if (keyList.get(i).contains("_Time") || i == keyList.size() - 1) {
+                    break;
+                }
+                cnt++;
+            }
+        }
+        return cnt;
     }
 }
