@@ -2,12 +2,16 @@ package com.example.layout_test.ui.videos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.layout_test.R;
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
@@ -23,42 +27,103 @@ import java.util.Objects;
 
 import static com.example.layout_test.ui.videos.VideoFileAdapter.videoFiles;
 
-public class VideoPlayer extends AppCompatActivity {
-    PlayerView playerView;
-    SimpleExoPlayer simpleExoPlayer;
-    int position = -1;
-    ArrayList<VideoFile> mFiles = new ArrayList<>();
+public class VideoPlayer {
+    private String TAG = "201521037";
+    private Context context;
+    private PlayerController playerController;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setFullScreen();
-        setContentView(R.layout.screen_video_player);
-        Objects.requireNonNull(getSupportActionBar()).hide();
-        playerView = findViewById(R.id.exoplayer_movie);
-        position = getIntent().getIntExtra("position", -1);
+    private PlayerView playerView;
+    private SimpleExoPlayer exoPlayer;
+    private ComponentListener componentListener;
+    private String path;
 
-        mFiles = videoFiles;
-        String path = mFiles.get(position).getPath();
+    public VideoPlayer(PlayerView playerView,
+                       Context context,
+                       String path,
+                       PlayerController mView) {
+        this.playerView = playerView;
+        this.context = context;
+        this.playerController = mView;
+        this.path = path;
+        initializePlayer();
+    }
+
+    protected void initializePlayer() {
+        playerView.requestFocus();
+
+        componentListener = new ComponentListener();
+
         if (path != null) {
             Uri uri = Uri.parse(path);
-            simpleExoPlayer = new SimpleExoPlayer.Builder(this).build();
-            DataSource.Factory factory = new DefaultDataSourceFactory(this,
-                    Util.getUserAgent(this,
+            exoPlayer = new SimpleExoPlayer.Builder(context).build();
+            DataSource.Factory factory = new DefaultDataSourceFactory(context,
+                    Util.getUserAgent(context,
                             "CCPlayer"));
             ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+
+            playerView.setPlayer(exoPlayer);
+            playerView.setKeepScreenOn(true);
+            exoPlayer.setPlayWhenReady(true);
+            exoPlayer.addListener(componentListener);
+
             ProgressiveMediaSource mediaSource = new ProgressiveMediaSource.Factory(factory,
                     extractorsFactory).createMediaSource(uri);
-            playerView.setPlayer(simpleExoPlayer);
-            playerView.setKeepScreenOn(true);
-            simpleExoPlayer.prepare(mediaSource);
-            simpleExoPlayer.setPlayWhenReady(true);
+            exoPlayer.prepare(mediaSource);
         }
     }
 
-    private void setFullScreen() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    public void pausePlayer() {
+        exoPlayer.setPlayWhenReady(false);
+    }
+
+    public void resumePlayer() {
+        exoPlayer.setPlayWhenReady(true);
+    }
+
+    public void releasePlayer() {
+        if (exoPlayer == null)
+            return;
+
+        playerView.setPlayer(null);
+        exoPlayer.release();
+        exoPlayer.removeListener(componentListener);
+        exoPlayer = null;
+
+    }
+
+    public SimpleExoPlayer getPlayer() {
+        return exoPlayer;
+    }
+
+
+    private class ComponentListener implements Player.EventListener {
+        @Override
+        public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+            Log.d(TAG, "onPlayerStateChanged: playWhenReady: " + playWhenReady + " playbackState: " + playbackState);
+            switch (playbackState) {
+                case Player.STATE_IDLE:
+                    playerController.showProgressBar(false);
+                    playerController.showRetryBtn(true);
+                    break;
+                case Player.STATE_BUFFERING:
+                    playerController.showProgressBar(true);
+                    break;
+                case Player.STATE_READY:
+                    playerController.showProgressBar(false);
+                    playerController.audioFocus();
+                    break;
+                case Player.STATE_ENDED:
+                    playerController.showProgressBar(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        @Override
+        public void onPlayerError(ExoPlaybackException error) {
+            playerController.showProgressBar(false);
+            playerController.showRetryBtn(true);
+        }
     }
 }

@@ -22,7 +22,7 @@
         <activity android:name=".ui.community.CommunityWritePostActivity" />
         <activity android:name=".ui.community.RegisterActivity" />
         <activity android:name=".ui.community.LoginActivity" />
-        <activity android:name=".ui.videos.VideoPlayer" />
+        <activity android:name=".ui.videos.VideoPlayerActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

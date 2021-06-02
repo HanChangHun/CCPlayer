@@ -44,9 +44,8 @@ public class VideoFileAdapter extends RecyclerView.Adapter<VideoFileHolder> {
                 .load(new File(videoFiles.get(position).getPath()))
                 .into(holder.thumbnail);
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, VideoPlayer.class);
+            Intent intent = new Intent(mContext, VideoPlayerActivity.class);
             intent.putExtra("position", position);
-            intent.putExtra("sender", "FilesIsSending");
             mContext.startActivity(intent);
         });
     }
@@ -55,4 +54,5 @@ public class VideoFileAdapter extends RecyclerView.Adapter<VideoFileHolder> {
     public int getItemCount() {
         return videoFiles.size();
     }
+
 }

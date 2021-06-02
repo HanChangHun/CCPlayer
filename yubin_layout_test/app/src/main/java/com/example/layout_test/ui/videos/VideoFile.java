@@ -6,6 +6,7 @@ public class VideoFile {
     private String title;
     private String fileName;
     private int duration;
+    private String subtitlePath;
 
     public VideoFile(long id, String path, String title,
                      String fileName, int duration) {
@@ -14,6 +15,7 @@ public class VideoFile {
         this.title = title;
         this.fileName = fileName;
         this.duration = duration;
+        this.subtitlePath = path.replace(".mkv", ".srt").replace(".mp4", ".srt");
     }
 
     public long getId() {
