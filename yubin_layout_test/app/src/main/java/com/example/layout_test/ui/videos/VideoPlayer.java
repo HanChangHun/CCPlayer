@@ -56,6 +56,7 @@ public class VideoPlayer {
     private ComponentListener componentListener;
     private CacheDataSourceFactory cacheDataSourceFactory;
     private String path;
+    private boolean isLock = false;
 
     public VideoPlayer(PlayerView playerView,
                        Context context,
@@ -183,6 +184,13 @@ public class VideoPlayer {
         resumePlayer();
     }
 
+    public void lockScreen(boolean isLock) {
+        this.isLock = isLock;
+    }
+
+    public boolean isLock() {
+        return isLock;
+    }
 
     private class ComponentListener implements Player.EventListener {
         @Override

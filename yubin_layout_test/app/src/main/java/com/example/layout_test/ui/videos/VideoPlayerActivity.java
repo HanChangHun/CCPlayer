@@ -28,7 +28,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     private PlayerView playerView;
     private VideoPlayer player;
-    private ImageButton subtitle, retry, back;
+    private ImageButton subtitle, retry, back, lock, unLock;
     private ProgressBar progressBar;
     private AudioManager mAudioManager;
     private int position = -1;
@@ -95,10 +95,14 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
         subtitle = findViewById(R.id.btn_subtitle);
         retry = findViewById(R.id.retry_btn);
         back = findViewById(R.id.btn_back);
+        lock = findViewById(R.id.btn_lock);
+        unLock = findViewById(R.id.btn_unLock);
 
         subtitle.setOnClickListener(this);
         retry.setOnClickListener(this);
         back.setOnClickListener(this);
+        lock.setOnClickListener(this);
+        unLock.setOnClickListener(this);
     }
 
     private void initSource() {
@@ -111,11 +115,38 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
         playerView.getSubtitleView().setVisibility(View.GONE);
         player.seekToOnDoubleTap();
+
+        playerView.setControllerVisibilityListener(visibility ->
+        {
+            Log.i(TAG, "onVisibilityChange: " + visibility);
+            if (player.isLock())
+                playerView.hideController();
+
+            back.setVisibility(visibility == View.VISIBLE && !player.isLock() ? View.VISIBLE : View.GONE);
+        });
     }
 
     @Override
     public void showProgressBar(boolean visible) {
         progressBar.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    private void updateLockMode(boolean isLock) {
+        if (player == null || playerView == null)
+            return;
+
+        player.lockScreen(isLock);
+
+        if (isLock) {
+            disableBackPress = true;
+            playerView.hideController();
+            unLock.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        disableBackPress = false;
+        playerView.showController();
+        unLock.setVisibility(View.GONE);
     }
 
     @Override
@@ -216,7 +247,12 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
             case R.id.btn_back:
                 onBackPressed();
                 break;
-
+            case R.id.btn_lock:
+                updateLockMode(true);
+                break;
+            case R.id.btn_unLock:
+                updateLockMode(false);
+                break;
             default:
                 break;
         }

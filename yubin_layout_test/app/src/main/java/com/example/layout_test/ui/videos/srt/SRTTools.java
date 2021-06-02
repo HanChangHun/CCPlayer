@@ -27,7 +27,6 @@ public class SRTTools {
 
     public void parseSRT(String filepath) {
         String charset = getCharset(filepath);
-        Log.d("201521037", "parseSRT: charset: " + charset);
         String line = null;
         String startTime, endTime;
 
@@ -35,20 +34,14 @@ public class SRTTools {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     new FileInputStream(new File(filepath)), charset));
             while ((line = reader.readLine()) != null) {
-                Log.d("201521037", "parseSRT: line: " + line);
                 if (!line.equals("")) {
                     if (Pattern.matches(EXPRESSION1, line)) {
-                        Log.d("201521037", "parseSRT: matched!!");
                         startTime = line.substring(0, 12);
                         endTime = line.substring(17, 29);
                         long start = TimeToMs(startTime);
                         long end = TimeToMs(endTime);
                         srts.add(new SRT(start, end));
-                    } else {
-                        Log.d("201521037", "parseSRT: expression not match...");
                     }
-                } else {
-                    Log.d("201521037", "parseSRT: line == \"\"");
                 }
             }
             reader.close();
