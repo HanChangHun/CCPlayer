@@ -61,6 +61,10 @@ public class CalendarFragment extends Fragment {
         //listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         //Initial Key is current date
+        Calendar c = Calendar.getInstance();
+        selectedYear = c.get(Calendar.YEAR);
+        selectedMon = c.get(Calendar.MONTH) + 1;
+        selectedDay = c.get(Calendar.DATE);
         keyOfData = keyManager.initialKey();
         Log.i("Initial key", keyOfData);
         rebuild.com.sharedpreferences.SharedPreference.setString(mContext, keyOfData, "0");
@@ -125,7 +129,6 @@ public class CalendarFragment extends Fragment {
                     keyOfData = keyManager.addKey(Integer.toString(selectedYear), Integer.toString(selectedMon), Integer.toString(selectedDay));
                     rebuild.com.sharedpreferences.SharedPreference.setString(mContext, keyOfData, text);
                     String test = rebuild.com.sharedpreferences.SharedPreference.getString(mContext, keyOfData);
-                    Log.i("error", Integer.toString(selectedYear));
                     ed.setText("");
                     adapter.notifyDataSetChanged();
                     Log.i("add", keyOfData);

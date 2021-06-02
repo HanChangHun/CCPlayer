@@ -33,7 +33,6 @@ public class KeyManager {
     public String addKey(String year, String month, String date)
     {
         findKey = year + month + date;
-        Log.i("findkey", findKey);
         int cnt = 1;
         String newKey = "";
         if(keyList.contains(currentKey))
@@ -43,14 +42,29 @@ public class KeyManager {
             {
                 if(!keyList.get(i).contains(findKey) || i == keyList.size() - 1)
                 {
-                    newKey = findKey + "_" + Integer.toString(cnt);
-                    if(!keyList.contains(newKey))
-                    {
-                        keyList.add(i + 1, newKey);
+                    //newKey = findKey + "_" + Integer.toString(cnt);
+                    if(i == keyList.size() - 1) {
+                        if (!keyList.contains(newKey)) {
+                            newKey = findKey + "_" + Integer.toString(cnt);
+                            keyList.add(i + 1, newKey);
+                            break;
+                        }
                     }
-                    break;
+                    else
+                    {
+                        if(!keyList.contains(newKey))
+                        {
+                            newKey = findKey + "_" + Integer.toString(cnt - 1);
+                            keyList.add(i, newKey);
+                            break;
+                        }
+                    }
                 }
                 cnt ++;
+            }
+            for(int i = 0; i < keyList.size(); i++)
+            {
+                Log.i("key is : ", keyList.get(i));
             }
         }
         return newKey;
