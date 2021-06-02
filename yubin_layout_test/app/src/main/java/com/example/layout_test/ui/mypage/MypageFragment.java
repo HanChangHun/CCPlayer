@@ -58,8 +58,9 @@ public class MypageFragment extends Fragment {
         });
 
         btnSetPW.setOnClickListener(v -> {
+            startActivityForResult(new Intent(getContext(), SetPWActivity.class), 0);
             // user.updatePassword();
-            Toast.makeText(getContext(), "PW set", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "PW set", Toast.LENGTH_SHORT).show();
         });
 
         // Check if user is logged in
@@ -101,7 +102,7 @@ public class MypageFragment extends Fragment {
 
     // 로그인 화면 이동
     public void onLoginClick (View view) {
-        startActivity(new Intent(getContext(), LoginActivity.class));
+        startActivityForResult(new Intent(getContext(), LoginActivity.class), 1);
     }
 
     private void updateUserInfo (FirebaseUser user) {
@@ -149,6 +150,17 @@ public class MypageFragment extends Fragment {
             tvInfoPosts.setText("작성한 게시글: 0개");
             // Study time
             tvInfoStudyTime.setText("학습한 시간: 0분");
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (    requestCode == 0 || // set pw request
+                requestCode == 1    // login request
+            ) {
+            // Update page
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            updateUserInfo(user);
         }
     }
 }
