@@ -2,6 +2,7 @@ package com.example.layout_test.ui.videos;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,8 +67,10 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setFullScreen();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.screen_video_player);
         Objects.requireNonNull(getSupportActionBar()).hide();
+
         getDataFromIntent();
         setupLayout();
         initSource();
@@ -176,6 +179,8 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         if (mAudioManager != null) {
             mAudioManager.abandonAudioFocus(mOnAudioFocusChangeListener);
             mAudioManager = null;
