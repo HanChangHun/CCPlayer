@@ -64,8 +64,6 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "VPA: onCreate: ");
-
         setFullScreen();
         setContentView(R.layout.screen_video_player);
         Objects.requireNonNull(getSupportActionBar()).hide();
@@ -99,7 +97,6 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initSource() {
-        Log.d(TAG, "initSource: ");
         mFiles = videoFiles;
         String path = mFiles.get(position).getPath();
 
@@ -181,6 +178,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onBackPressed() {
+        Log.d(TAG, "onBackPressed: !!");
         if (disableBackPress)
             return;
 
