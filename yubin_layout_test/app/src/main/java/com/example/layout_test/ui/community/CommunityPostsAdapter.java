@@ -12,9 +12,8 @@ import com.example.layout_test.R;
 import com.example.layout_test.ui.community.db.PostItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class CommunityPostsAdapter extends RecyclerView.Adapter<PostViewHolder> {
+public class CommunityPostsAdapter extends RecyclerView.Adapter<PostItem.PostViewHolder> {
     private ArrayList<PostItem> postsList;
 
     public CommunityPostsAdapter(ArrayList<PostItem> postsList) {
@@ -23,14 +22,14 @@ public class CommunityPostsAdapter extends RecyclerView.Adapter<PostViewHolder> 
 
     @NonNull
     @Override
-    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PostItem.PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d("POST", "POST VIEWHOLDER CREATE");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.community_post_item, parent, false);
-        return new PostViewHolder(view);
+        return new PostItem.PostViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PostItem.PostViewHolder holder, int position) {
         Log.d("POST", "POST VIEWHOLDER BOUND " + position);
         holder.bindPlz(postsList.get(position));
     }

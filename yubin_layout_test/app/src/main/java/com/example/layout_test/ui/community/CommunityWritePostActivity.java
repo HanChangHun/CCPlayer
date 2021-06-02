@@ -49,12 +49,12 @@ public class CommunityWritePostActivity extends AppCompatActivity {
                 FirebaseUser currentUser = MainActivity.getFireAuth().getCurrentUser();
 
                 // Create map containing post info
-                writeNewPost(MainActivity.getFireDB().getReference(), currentUser.getUid(), strTitle, strBody);
+                writeNewPost(MainActivity.getFireDB().getReference(), boardID, currentUser.getUid(), strTitle, strBody);
             }
         });
     }
 
-    public void writeNewPost (DatabaseReference dbref, String writtenBy, String title, String body) {
+    public void writeNewPost (DatabaseReference dbref, String writtenOn, String writtenBy, String title, String body) {
         if (dbref == null)
             dbref = FirebaseDatabase.getInstance().getReference();
 
@@ -67,8 +67,11 @@ public class CommunityWritePostActivity extends AppCompatActivity {
 
         // Update on /posts/$postid
         updates.put("/posts/" + postID, post);
-        // Update on /posts/$postid
+        // Update on /user-posts/$postid
         updates.put("/user-posts/" + writtenBy + "/" + postID, post);
+
+        // Update on /boards/$boardid/$postid
+        updates.put("/boards/" + writtenOn + "/posts/" + postID, post);
 
         // Commit update
         dbref.updateChildren(updates).addOnSuccessListener(aVoid -> {
